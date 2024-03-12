@@ -1,4 +1,3 @@
-<!-- src/components/AddStudent.vue -->
 <template>
   <div>
     <h2 class="text-2xl font-bold mb-4">Add Student</h2>
@@ -27,7 +26,6 @@
 
 <script>
 export default {
-  name: "AddStudent",
   data() {
     return {
       username: "",
@@ -36,13 +34,20 @@ export default {
   },
   methods: {
     addStudent() {
-      this.$store.dispatch("addStudent", {
+      const newStudent = {
         username: this.username,
         email: this.email,
-      });
-      this.$router.go();
-      this.username = "";
-      this.email = "";
+      };
+      this.$store
+        .dispatch("addStudent", newStudent)
+        .then(() => {
+          this.$store.dispatch("fetchStudents");
+          this.username = "";
+          this.email = "";
+        })
+        .catch((error) => {
+          console.error("Error adding student:", error);
+        });
     },
   },
 };
