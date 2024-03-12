@@ -35,13 +35,9 @@ export default {
    this.$store.dispatch("fetchStudents");
   },
   methods: {
-    deleteStudent(id) {
+       deleteStudent(id) {
       this.$store.dispatch("deleteStudent", id);
-      this.Allstudents = this.Allstudents.filter(
-        (student) => student.id !== id
-      );
     },
-    
   },
 };
 </script>
