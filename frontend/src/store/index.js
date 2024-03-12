@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
-import axios from "axios"; // Import axios
+import axios from "axios"; 
 
-const apiUrl = "http://127.0.0.1:8000/api"; // Replace this with your actual API base URL
+const apiUrl = "http://127.0.0.1:8000/api"; 
 
 const store = createStore({
   state: {
@@ -22,24 +22,21 @@ const store = createStore({
     },
   },
   actions: {
-    async fetchStudents({ commit }) {
-      try {
-        // Set loading state to true
-        const response = await axios.get(apiUrl + "/students");
-        // Commit mutation to set students data
-        commit("setStudents", response.data);
-        // Set loading state to false
-      } catch (error) {
-        console.error("Error fetching students:", error);
-        // Set loading state to false in case of error
-      }
-    },
+ 
     async addStudent({ commit }, newStudent) {
       try {
         const response = await axios.post(apiUrl + "/students", newStudent);
         commit("addStudent", response.data);
       } catch (error) {
         console.error("Error adding student:", error);
+      }
+    },
+    async fetchStudents({ commit }) {
+      try {
+        const response = await axios.get(apiUrl + "/students");
+        commit("setStudents", response.data);
+      } catch (error) {
+        console.error("Error fetching students:", error);
       }
     },
     async deleteStudent({ commit }, id) {
